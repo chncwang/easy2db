@@ -11,4 +11,5 @@ public class Constants {
     public static final String LEFT_PARENTHESES = " (";
     public static final String RIGHT_PARENTHESES = ") ";
     public static final String VALUES = " VALUES ";
+    public static final String SET = " SET ";
 }

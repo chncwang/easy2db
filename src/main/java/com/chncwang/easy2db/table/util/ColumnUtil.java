@@ -21,6 +21,7 @@ public class ColumnUtil {
 
     public static String joinNamesWithComma(final List<ColumnValue> columnValues) {
         final List<String> names = Lists.newArrayList();
+
         for (final ColumnValue columnValue : columnValues) {
             names.add(columnValue.getColumnDef().getName());
         }
@@ -31,9 +32,23 @@ public class ColumnUtil {
     public static String joinValuesWithComma(
             final List<ColumnValue> columnValues) {
         final List<String> values = Lists.newArrayList();
+
         for (final ColumnValue columnValue : columnValues) {
             values.add(getColumnValueString(columnValue));
         }
+
         return StringUtils.join(values.toArray(), Constants.COMMA);
+    }
+
+    public static String joinNameValuePairWithComma(
+            final List<ColumnValue> columnValues) {
+        final List<String> pairs = Lists.newArrayList();
+
+        for (final ColumnValue columnValue : columnValues) {
+            pairs.add(columnValue.getColumnDef().getName() + Constants.EQUAL
+                    + getColumnValueString(columnValue));
+        }
+
+        return StringUtils.join(pairs.toArray(), Constants.COMMA);
     }
 }

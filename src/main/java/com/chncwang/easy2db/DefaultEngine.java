@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import com.chncwang.easy2db.parser.TableParser;
 import com.chncwang.easy2db.sql.InsertBuilder;
 import com.chncwang.easy2db.sql.SelectBuilder;
+import com.chncwang.easy2db.sql.UpdateBuilder;
 import com.chncwang.easy2db.table.value.Row;
 
 public class DefaultEngine<T> implements Engine<T> {
@@ -39,6 +40,12 @@ public class DefaultEngine<T> implements Engine<T> {
                     throw new SQLException("More than one result! SQL:"
                             + select);
                 }
+                resultSet.close();
+
+                final String update = UpdateBuilder.build(row);
+                LOG.debug("sendObjectToDb 0 update:" + update);
+
+                statement.executeUpdate(update);
             } else {
                 resultSet.close();
 
