@@ -13,12 +13,12 @@ import com.chncwang.easy2db.table.value.Row;
 public class TableParserTest {
     private static final Logger LOG = Logger.getLogger(TableParserTest.class);
 
-    private TableParser<GithubRepo> mTableParser;
+    private TableParser mTableParser;
 
     @Before
     public void setUp() {
         LogUtil.init();
-        mTableParser = TableParser.newTableParser(GithubRepo.class);
+        mTableParser = TableParser.getTableParser(GithubRepo.class);
     }
 
     @Test

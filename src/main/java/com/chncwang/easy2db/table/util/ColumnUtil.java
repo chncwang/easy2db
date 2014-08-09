@@ -6,23 +6,38 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.chncwang.easy2db.Constants;
 import com.chncwang.easy2db.sql.NumericTypes;
-import com.chncwang.easy2db.table.value.ColumnValue;
+import com.chncwang.easy2db.table.ColumnDef;
+import com.chncwang.easy2db.table.value.ColumnWithValue;
 import com.google.common.collect.Lists;
 
 public class ColumnUtil {
     private ColumnUtil() {}
 
-    public static String getColumnValueString(final ColumnValue columnValue) {
+    public static String getColumnValueString(final ColumnWithValue columnValue) {
         return NumericTypes
                 .isNumericType(columnValue.getColumnDef().getClazz()) ? columnValue
                 .getValue().toString() : Constants.QUOTATION
                 + columnValue.getValue() + Constants.QUOTATION;
     }
 
-    public static String joinNamesWithComma(final List<ColumnValue> columnValues) {
-        final List<String> names = Lists.newArrayList();
+    public static String joinNamesWithCommaWithColumnDefs(
+            final List<ColumnDef> columnDefs) {
+        final List<String> names = Lists.newArrayListWithCapacity(columnDefs
+                .size());
 
-        for (final ColumnValue columnValue : columnValues) {
+        for (final ColumnDef columnDef : columnDefs) {
+            names.add(columnDef.getName());
+        }
+
+        return StringUtils.join(names.toArray(), Constants.COMMA);
+    }
+
+    public static String joinNamesWithComma(
+            final List<ColumnWithValue> columnValues) {
+        final List<String> names = Lists.newArrayListWithCapacity(columnValues
+                .size());
+
+        for (final ColumnWithValue columnValue : columnValues) {
             names.add(columnValue.getColumnDef().getName());
         }
 
@@ -30,10 +45,11 @@ public class ColumnUtil {
     }
 
     public static String joinValuesWithComma(
-            final List<ColumnValue> columnValues) {
-        final List<String> values = Lists.newArrayList();
+            final List<ColumnWithValue> columnValues) {
+        final List<String> values = Lists.newArrayListWithCapacity(columnValues
+                .size());
 
-        for (final ColumnValue columnValue : columnValues) {
+        for (final ColumnWithValue columnValue : columnValues) {
             values.add(getColumnValueString(columnValue));
         }
 
@@ -41,10 +57,11 @@ public class ColumnUtil {
     }
 
     public static String joinNameValuePairWithComma(
-            final List<ColumnValue> columnValues) {
-        final List<String> pairs = Lists.newArrayList();
+            final List<ColumnWithValue> columnValues) {
+        final List<String> pairs = Lists.newArrayListWithCapacity(columnValues
+                .size());
 
-        for (final ColumnValue columnValue : columnValues) {
+        for (final ColumnWithValue columnValue : columnValues) {
             pairs.add(columnValue.getColumnDef().getName() + Constants.EQUAL
                     + getColumnValueString(columnValue));
         }

@@ -1,26 +1,22 @@
 package com.chncwang.easy2db.table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class PrimaryKeyDef {
     private final ColumnDef mColumnDef;
-    private final boolean mNeedInsert;
 
-    public PrimaryKeyDef(final ColumnDef columnDef, final boolean needInsert) {
+    public PrimaryKeyDef(final ColumnDef columnDef) {
         mColumnDef = columnDef;
-        mNeedInsert = needInsert;
     }
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.MULTI_LINE_STYLE);
     }
 
     public ColumnDef getColumnDef() {
         return mColumnDef;
-    }
-
-    public boolean needInsert() {
-        return mNeedInsert;
     }
 }

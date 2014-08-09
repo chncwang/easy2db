@@ -7,18 +7,26 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Row {
+    private final Class<?> mClass;
     private final String mTableName;
-    private final PrimaryKeyValue mPrimaryKeyValue;
-    private final ColumnValue mUniqueKeyValue;
-    private final List<ColumnValue> mColumnValues;
+    private final PrimaryKeyWithValue mPrimaryKeyWithValue;
+    private final ColumnWithValue mUniqueKeyWithValue;
+    private final List<ForeignKeyWithValue> mForeignKeyWithValueList;
+    private final List<ColumnWithValue> mColumnWithValueList;
 
-    public Row(final String tableName, final PrimaryKeyValue primaryKeyValue,
-            final ColumnValue uniqueKeyValue,
-            final List<ColumnValue> columnValues) {
+    public Row(final Class<?> clazz,
+            final String tableName,
+            final PrimaryKeyWithValue primaryKeyValue,
+            final ColumnWithValue uniqueKeyValue,
+            final List<ForeignKeyWithValue> foreignKeyValues,
+            final List<ColumnWithValue> columnValues) {
+        mClass = clazz;
         mTableName = tableName;
-        mPrimaryKeyValue = primaryKeyValue;
-        mUniqueKeyValue = uniqueKeyValue;
-        mColumnValues = Collections.unmodifiableList(columnValues);
+        mPrimaryKeyWithValue = primaryKeyValue;
+        mUniqueKeyWithValue = uniqueKeyValue;
+        mForeignKeyWithValueList = Collections
+                .unmodifiableList(foreignKeyValues);
+        mColumnWithValueList = Collections.unmodifiableList(columnValues);
     }
 
     @Override
@@ -27,19 +35,27 @@ public class Row {
                 ToStringStyle.MULTI_LINE_STYLE);
     }
 
+    public Class<?> getClazz() {
+        return mClass;
+    }
+
     public String getTableName() {
         return mTableName;
     }
 
-    public PrimaryKeyValue getPrimaryKeyValue() {
-        return mPrimaryKeyValue;
+    public PrimaryKeyWithValue getPrimaryKeyValue() {
+        return mPrimaryKeyWithValue;
     }
 
-    public ColumnValue getUniqueKeyValue() {
-        return mUniqueKeyValue;
+    public ColumnWithValue getUniqueKeyValue() {
+        return mUniqueKeyWithValue;
     }
 
-    public List<ColumnValue> getColumnValues() {
-        return mColumnValues;
+    public List<ForeignKeyWithValue> getForeignKeyWithValueList() {
+        return mForeignKeyWithValueList;
+    }
+
+    public List<ColumnWithValue> getColumnWithValueList() {
+        return mColumnWithValueList;
     }
 }

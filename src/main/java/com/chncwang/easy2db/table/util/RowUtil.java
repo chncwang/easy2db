@@ -1,18 +1,27 @@
 package com.chncwang.easy2db.table.util;
 
-import com.chncwang.easy2db.table.value.ColumnValue;
+import java.util.List;
+
+import com.chncwang.easy2db.table.value.ColumnWithValue;
+import com.chncwang.easy2db.table.value.ForeignKeyWithValue;
 import com.chncwang.easy2db.table.value.Row;
+import com.google.common.collect.Lists;
 
 public class RowUtil {
     private RowUtil() {}
+
+    public static Class<?> getPrimaryKeyType(final Row row) {
+        return row.getPrimaryKeyValue().getPrimaryKeyDef().getColumnDef()
+                .getClazz();
+    }
 
     public static String getPrimaryKeyName(final Row row) {
         return row.getPrimaryKeyValue().getPrimaryKeyDef().getColumnDef()
                 .getName();
     }
 
-    public static ColumnValue getPrimaryKeyAsColumnValue(final Row row) {
-        return new ColumnValue(row.getPrimaryKeyValue().getPrimaryKeyDef()
+    public static ColumnWithValue getPrimaryKeyAsColumnWithValue(final Row row) {
+        return new ColumnWithValue(row.getPrimaryKeyValue().getPrimaryKeyDef()
                 .getColumnDef(), row.getPrimaryKeyValue().getValue());
     }
 
@@ -25,6 +34,22 @@ public class RowUtil {
     }
 
     public static String getColumnName(final Row row, final int index) {
-        return row.getColumnValues().get(index).getColumnDef().getName();
+        return row.getColumnWithValueList().get(index).getColumnDef().getName();
+    }
+
+    public static List<ColumnWithValue> getForeignKeyWithValueListAsColumnWithValueList(
+            final Row row) {
+        final List<ForeignKeyWithValue> foreignKeyWithValueList = row
+                .getForeignKeyWithValueList();
+        final List<ColumnWithValue> columnWithValueList = Lists
+                .newArrayListWithCapacity(foreignKeyWithValueList.size());
+
+        for (final ForeignKeyWithValue foreignKeyWithValue : foreignKeyWithValueList) {
+            final ColumnWithValue columnWithValue = ForeignKeyUtil
+                    .toColumnWithValue(foreignKeyWithValue);
+            columnWithValueList.add(columnWithValue);
+        }
+
+        return columnWithValueList;
     }
 }

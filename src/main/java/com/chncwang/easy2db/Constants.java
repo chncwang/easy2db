@@ -12,4 +12,6 @@ public class Constants {
     public static final String RIGHT_PARENTHESES = ") ";
     public static final String VALUES = " VALUES ";
     public static final String SET = " SET ";
+
+    public static final String NULL_POINTER_ERROR_TEMPLATE = "%s should not be null!";
 }

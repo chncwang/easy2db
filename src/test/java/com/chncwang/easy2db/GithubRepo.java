@@ -1,19 +1,27 @@
 package com.chncwang.easy2db;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.chncwang.easy2db.table.annotation.Column;
+import com.chncwang.easy2db.table.annotation.Foreign;
 import com.chncwang.easy2db.table.annotation.PrimaryKey;
 import com.chncwang.easy2db.table.annotation.Table;
 import com.chncwang.easy2db.table.annotation.UniqueKey;
 
 @Table("github_repo")
 public class GithubRepo {
-    @PrimaryKey(needInsert = true)
+    @PrimaryKey
     @Column("id")
     private String mId;
 
     @UniqueKey
     @Column("url")
     private String mUrl;
+
+    @Foreign
+    @Column("user_id")
+    private User mUser;
 
     @Column("name")
     private String mName;
@@ -22,6 +30,12 @@ public class GithubRepo {
     private Integer mStarCount;
 
     public GithubRepo() {}
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this,
+                ToStringStyle.MULTI_LINE_STYLE);
+    }
 
     public String getId() {
         return mId;
@@ -37,6 +51,14 @@ public class GithubRepo {
 
     public void setUrl(final String url) {
         mUrl = url;
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(final User user) {
+        mUser = user;
     }
 
     public String getName() {

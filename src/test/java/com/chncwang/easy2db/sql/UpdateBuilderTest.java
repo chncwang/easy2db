@@ -20,7 +20,7 @@ public class UpdateBuilderTest {
 
     @Test
     public void testBuilder() {
-        final Row row = TableParser.newTableParser(GithubRepo.class).toRow(
+        final Row row = TableParser.getTableParser(GithubRepo.class).toRow(
                 GithubRepos.fool2048());
         final String sql = UpdateBuilder.build(row);
         LOG.debug("testBuilder - sql:" + sql);

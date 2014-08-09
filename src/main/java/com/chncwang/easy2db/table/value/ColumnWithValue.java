@@ -5,11 +5,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.chncwang.easy2db.table.ColumnDef;
 
-public class ColumnValue {
+public class ColumnWithValue {
     private final ColumnDef mColumnDef;
     private final Object mValue;
 
-    public ColumnValue(final ColumnDef columnDef, final Object value) {
+    public ColumnWithValue(final ColumnDef columnDef, final Object value) {
         mColumnDef = columnDef;
         mValue = value;
     }

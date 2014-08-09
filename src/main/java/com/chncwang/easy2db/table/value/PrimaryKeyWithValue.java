@@ -5,11 +5,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.chncwang.easy2db.table.PrimaryKeyDef;
 
-public class PrimaryKeyValue {
+public class PrimaryKeyWithValue {
     private final PrimaryKeyDef mPrimaryKeyDef;
-    private final Object mValue;
+    private Object mValue;
 
-    public PrimaryKeyValue(final PrimaryKeyDef primaryKeyDef, final Object value) {
+    public PrimaryKeyWithValue(final PrimaryKeyDef primaryKeyDef, final Object value) {
         mPrimaryKeyDef = primaryKeyDef;
         mValue = value;
     }
@@ -26,5 +26,9 @@ public class PrimaryKeyValue {
 
     public Object getValue() {
         return mValue;
+    }
+
+    public void setValue(final Object value) {
+        mValue = value;
     }
 }

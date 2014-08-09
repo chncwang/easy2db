@@ -5,10 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.chncwang.easy2db.GithubRepo;
-import com.chncwang.easy2db.GithubRepos;
 import com.chncwang.easy2db.log.LogUtil;
 import com.chncwang.easy2db.parser.TableParser;
-import com.chncwang.easy2db.table.value.Row;
 
 public class SelectBuilderTest {
     private static final Logger LOG = Logger.getLogger(SelectBuilderTest.class);
@@ -20,9 +18,8 @@ public class SelectBuilderTest {
 
     @Test
     public void testBuild() {
-        final Row row = TableParser.newTableParser(GithubRepo.class).toRow(
-                GithubRepos.fool2048());
-        final String sql = SelectBuilder.build(row);
+        final TableParser parser = TableParser.getTableParser(GithubRepo.class);
+        final String sql = SelectBuilder.build(parser.getTableDef(), "abc");
         LOG.debug("testBuild - sql:" + sql);
     }
 }
