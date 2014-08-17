@@ -7,7 +7,6 @@ import java.util.Map;
 import com.chncwang.easy2db.parser.TableParser;
 import com.chncwang.easy2db.parser.TableParserUtil;
 import com.chncwang.easy2db.table.ColumnDef;
-import com.chncwang.easy2db.table.ForeignKeyDef;
 import com.chncwang.easy2db.table.TableDef;
 import com.chncwang.easy2db.table.util.TableUtil;
 
@@ -38,15 +37,6 @@ public class SqlUtil {
             final Object uniqueKeyValue = resultSet.getObject(tableDef
                     .getUniqueKeyDef().getName(), classMap);
             tableParser.getUniqueKeyField().set(object, uniqueKeyValue);
-
-            for (int i=0; i<tableDef.getForeignKeyDefs().size(); ++i) {
-                final ForeignKeyDef foreignKeyDef = tableDef
-                        .getForeignKeyDefs().get(i);
-                final Object foreignKeyValue = resultSet.getObject(
-                        foreignKeyDef.getColumnName(), classMap);
-                tableParser.getForeignFields().get(i)
-                        .set(object, foreignKeyValue);
-            }
 
             for (int i=0; i<tableDef.getColumnDefs().size(); ++i) {
                 final ColumnDef columnDef = tableDef.getColumnDefs().get(i);
